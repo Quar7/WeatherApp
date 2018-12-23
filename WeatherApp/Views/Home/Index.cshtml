@@ -1,0 +1,60 @@
+﻿@model WeatherViewModel
+@{
+    ViewData["Title"] = "Prognoza pogody";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron text-center">
+            <h1>Aplikacja pogodowa</h1>
+            <h2>Systemy Big Data</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-12">
+        <h2>Prognoza pogody dla - <strong>GDYNIA</strong></h2>
+        <h3>Dzisiaj jest @Model.CurrentDate</h3>
+        <p>Dane pobrane ze strony <a href="https://pogoda.interia.pl/prognoza-dlugoterminowa-gdynia,cId,8052" target="_blank">pogoda.interia.pl</a></p>
+    </div>
+</div>
+<br />
+
+<div class="row text-center">
+    <div class="col-md-12">
+        <a asp-controller="File" asp-action="ExportToTxt" class="btn btn-primary">Pobierz plik .txt</a>
+        <a asp-controller="File" asp-action="ExportToXlsx" class="btn btn-primary">Pobierz plik .xlsx</a>
+    </div>
+</div>
+<br /><br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover text-center">
+            <tr>
+                <th>Dzień</th>
+                <th>Dzień tygodnia</th>
+                <th>Średnia temperatura</th>
+                <th>Wiatr</th>
+                <th>Zachmurzenie</th>
+                <th>Opady</th>
+                <th>Ciśnienie</th>
+                <th>Promieniowanie UV</th>
+            </tr>
+
+            @foreach (var weatherDay in Model.WeatherList)
+            {
+                <tr>
+                    <td>@weatherDay.Date</td>
+                    <td>@weatherDay.DayOfWeek</td>
+                    <td>@weatherDay.Temp</td>
+                    <td>@weatherDay.Wind km/h</td>
+                    <td>@weatherDay.Clouds</td>
+                    <td>@weatherDay.Rain</td>
+                    <td>@weatherDay.Pressure hPa</td>
+                    <td>@weatherDay.UV</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
